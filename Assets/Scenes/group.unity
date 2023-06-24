@@ -20335,6 +20335,10 @@ MonoBehaviour:
   ChatScene: talk
   GameScene: game
   PersonalScene: personal
+  LogOut: {fileID: 0}
+  signupfirst: {fileID: 0}
+  Login: {fileID: 0}
+  Logout: {fileID: 0}
 --- !u!1 &1895405929
 GameObject:
   m_ObjectHideFlags: 0

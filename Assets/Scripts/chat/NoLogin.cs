@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-//位置在signin場景裡面的Main camera
-public class FirstLoad : MonoBehaviour
+//位置在talk場景裡面的Main camera
+public class NoLogin : MonoBehaviour
 {
-    private static FirstLoad _singleton;
-    public static FirstLoad Singleton
+    private static NoLogin _singleton;
+    public static NoLogin Singleton
     {
         get => _singleton;
         private set

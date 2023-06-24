@@ -9,6 +9,7 @@ public enum ServerToClientId : ushort
     loginResult,
     signUpResult,
     loginError,
+    sendChat,
 }
 
 public enum ClientToServerId : ushort
@@ -16,9 +17,7 @@ public enum ClientToServerId : ushort
     connect = 1,
     login,
     signUp,
-    chooseDocOrPatient,
-    addFavorite,
-    cancelFavorite,
+    sendChat,
 }
 
 public class NetworkManager : MonoBehaviour
@@ -34,7 +33,7 @@ public class NetworkManager : MonoBehaviour
             else if (_singleton != value)
             {
                 Debug.Log($"{nameof(NetworkManager)} instance already exists, destroying duplicate!");
-                Destroy(value);
+                Destroy(value.gameObject);
             }
         }
     }
@@ -60,7 +59,8 @@ public class NetworkManager : MonoBehaviour
         Client.ClientDisconnected += PlayerLeft;
         Client.Disconnected += DidDisconnect;
     }
-
+    public bool isConnect;
+    
     private void FixedUpdate()
     {
         Client.Tick();

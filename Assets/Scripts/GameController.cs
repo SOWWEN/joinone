@@ -30,10 +30,30 @@ public class GameController : MonoBehaviour
     public string ChatScene;
     public string GameScene;
     public string PersonalScene;
+    public GameObject LogOut; 
+    public GameObject signupfirst;
+    public GameObject Login;
+    public GameObject Logout;
+    //bool trigger2=false;
     //public bool firstLoad=true;
     // Start is called before the first frame update
     void Start()
     {
+        if(FirstLoad.Singleton.islogin==true && SceneManager.GetActiveScene().name=="personal"){
+            Debug.Log("6");
+            Login.SetActive(false);
+            Logout.SetActive(true);
+        }
+        if(NoLogin.Singleton.islogin==true && SceneManager.GetActiveScene().name=="talk"){
+            Debug.Log("8");
+            signupfirst.SetActive(false);
+            Debug.Log("9");
+        }
+        /*else if(Logout==false && SceneManager.GetActiveScene().name=="personal"){
+            Debug.Log("5");
+            Login.SetActive(false);
+            Logout.SetActive(true);
+        }*/
         //DontDestroyOnLoad(gameObject);
     }
 
@@ -42,8 +62,6 @@ public class GameController : MonoBehaviour
     {
 
     }
-
-
     public void load_signin()
     {
         SceneManager.LoadScene(SignScene);
@@ -63,5 +81,22 @@ public class GameController : MonoBehaviour
     public void load_game()
     {
         SceneManager.LoadScene(GameScene);
+    }
+    public void load_signupfirst()
+    {
+        SceneManager.LoadScene(0);
+
+    }
+     public void load_LogOut()
+    {
+        Debug.Log("123");
+        SceneManager.LoadScene(GameScene);
+        Login.SetActive(true);
+        Logout.SetActive(false);
+        //signupfirst.SetActive(true);
+        FirstLoad.Singleton.islogin=false;
+        //FirstLoad.Singleton.firstLoad=true;
+        NoLogin.Singleton.islogin=false;
+        //NoLogin.Singleton.firstLoad=true;
     }
 }

@@ -24,15 +24,14 @@ public class Player : MonoBehaviour
         player = Instantiate(GameLogic.Singleton.LocalPlayerPrefab).GetComponent<Player>();
         if (id == NetworkManager.Singleton.Client.Id)
         {
-            
             player.Id=id;
         }
         else
         {
             Debug.Log($"some prblem");
             player.Id = NetworkManager.Singleton.Client.Id;
-            
         }
+        NetworkManager.Singleton.isConnect = true;
 
         UIManager.Singleton.isConnect = true;
     
@@ -76,5 +75,15 @@ public class Player : MonoBehaviour
     private static void LoginError(Message message)
     {
         LoginError(message.GetString());
+    }
+    public static void sendChat(string chat)
+    {
+        chat_controller.Singleton.sendChat(chat);
+    }
+
+    [MessageHandler((ushort)ServerToClientId.sendChat)]
+    private static void sendChat(Message message)
+    {
+        sendChat(message.GetString());
     }
 }

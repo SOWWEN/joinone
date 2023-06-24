@@ -57,14 +57,15 @@ public class UIManager : MonoBehaviour
     [SerializeField] private InputField passwordField;
     [SerializeField] private Text failText; 
     [SerializeField] private Button signUpBtn;
+    [SerializeField] private Button signUptoBtn;
     
 
     private void Awake()
     {
         Singleton = this;
-        if(useDatabase){
-            Invoke(nameof(Connect),2f);
-            Invoke(nameof(SendConnect),4f);
+        if(useDatabase && !NetworkManager.Singleton.isConnect){
+            Invoke(nameof(Connect),1f);
+            Invoke(nameof(SendConnect),2f);
         }
     }
 
@@ -95,8 +96,21 @@ public class UIManager : MonoBehaviour
 
     public void Btn_SignUp()
     {
-            signUpBtn.enabled = false ;
-            SendSignUpData();
+        signUpBtn.enabled = false ;
+        SendSignUpData();
+    }
+
+    public void Btn_toSignUp()//轉至註冊畫面
+    {
+        Debug.Log("8");
+        signup.SetActive(true);
+        login.SetActive(false);
+    }
+     public void Btn_toLogin()//轉至登入畫面
+    {
+        Debug.Log("108");
+        signup.SetActive(false);
+        login.SetActive(true);
     }
 
     public void SendLoginData()
@@ -153,6 +167,8 @@ public class UIManager : MonoBehaviour
     }
     public void LoginResult( string name, string username, string email)
     {
+        FirstLoad.Singleton.islogin=true;
+        NoLogin.Singleton.islogin=true;
         SceneManager.LoadScene("game");
             /*if(myID == 0){
                 loginUI.SetActive(false);
@@ -202,27 +218,6 @@ public class UIManager : MonoBehaviour
        
     }
 #endregion
-
-    public void Btn_ChooseDocOrSick(bool isDoc)
-    {
-        chooseUI.SetActive(false);
-    
-        if(isDoc){
-            docUI.SetActive(true);
-            if(useDatabase){
-                Message message = Message.Create(MessageSendMode.reliable, (ushort)ClientToServerId.chooseDocOrPatient);
-                message.AddBool(true);
-                NetworkManager.Singleton.Client.Send(message);
-            }
-        }else{
-            sickUI.SetActive(true);
-            if(useDatabase){
-                Message message = Message.Create(MessageSendMode.reliable, (ushort)ClientToServerId.chooseDocOrPatient);
-                message.AddBool(false);
-                NetworkManager.Singleton.Client.Send(message);
-            }
-        }
-    }
 
     public void Btn_BackToChoose()
     {
