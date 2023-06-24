@@ -34,6 +34,12 @@ public class GameController : MonoBehaviour
     public GameObject signupfirst;
     public GameObject Login;
     public GameObject Logout;
+    public GameObject achievementButton;
+    public GameObject historyButton;
+    public GameObject calendarButton;
+    public GameObject recordButton;
+    public GameObject Image_login;
+    public GameObject Image_nologin;
     //bool trigger2=false;
     //public bool firstLoad=true;
     // Start is called before the first frame update
@@ -43,6 +49,13 @@ public class GameController : MonoBehaviour
             Debug.Log("6");
             Login.SetActive(false);
             Logout.SetActive(true);
+            achievementButton.SetActive(true);
+            historyButton.SetActive(true);
+            calendarButton.SetActive(true);
+            recordButton.SetActive(true);
+            Image_login.SetActive(true);
+            Image_nologin.SetActive(false);
+
         }
         if(NoLogin.Singleton.islogin==true && SceneManager.GetActiveScene().name=="talk"){
             Debug.Log("8");
@@ -91,8 +104,14 @@ public class GameController : MonoBehaviour
     {
         Debug.Log("123");
         SceneManager.LoadScene(GameScene);
+        achievementButton.SetActive(false);
+        historyButton.SetActive(false);
+        calendarButton.SetActive(false);
+        recordButton.SetActive(false);
         Login.SetActive(true);
         Logout.SetActive(false);
+        Image_login.SetActive(false);
+        Image_nologin.SetActive(true);
         //signupfirst.SetActive(true);
         FirstLoad.Singleton.islogin=false;
         //FirstLoad.Singleton.firstLoad=true;
